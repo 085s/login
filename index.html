@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Souhardya Singha BIO - Register & Login</title>
+    <style>
+        /* Main background styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Authentication container styling */
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #fff;
+        }
+
+        .auth-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #00ffcc;
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #00ffcc;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .auth-container button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-container button:hover {
+            background-color: #009999;
+        }
+
+        .toggle-link {
+            color: #00ffcc;
+            cursor: pointer;
+            text-decoration: underline;
+            display: block;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Additional styling for messages */
+        .message {
+            color: #ff4747;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Registration Form -->
+    <div class="auth-container" id="register-form">
+        <h2>Register</h2>
+        <input type="text" id="register-username" placeholder="Username" required>
+        <input type="password" id="register-password" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <span class="toggle-link" onclick="toggleForms()">Already have an account? Login</span>
+        <p class="message" id="register-message"></p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="auth-container" id="login-form" style="display: none;">
+        <h2>Login</h2>
+        <input type="text" id="login-username" placeholder="Username" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <span class="toggle-link" onclick="toggleForms()">Don't have an account? Register</span>
+        <p class="message" id="login-message"></p>
+    </div>
+
+    <script>
+        // Toggle between login and register forms
+        function toggleForms() {
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+            registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+            loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Register function
+        function register() {
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const message = document.getElementById('register-message');
+
+            if (username && password) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+                message.style.color = "#00ffcc";
+                message.textContent = "Registration successful! Redirecting...";
+
+                // Redirect to the bio page after successful registration
+                setTimeout(() => {
+                    window.location.href = "https://085s.github.io/my-bio/";
+                }, 1000);
+            } else {
+                message.textContent = "Please fill out all fields.";
+            }
+        }
+
+        // Login function
+        function login() {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const message = document.getElementById('login-message');
+
+            // Retrieve credentials from local storage
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                message.style.color = "#00ffcc";
+                message.textContent = "Login successful! Redirecting...";
+
+                // Redirect to the bio page after successful login
+                setTimeout(() => {
+                    window.location.href = "https://085s.github.io/my-bio/";
+                }, 1000);
+            } else {
+                message.textContent = "Incorrect username or password!";
+            }
+        }
+    </script>
+</body>
+</html>
